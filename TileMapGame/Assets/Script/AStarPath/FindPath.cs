@@ -12,7 +12,7 @@ public class FindPath : MonoBehaviour {
 	
 	// Update is called once per frame
 	[ContextMenu("PathFind")]
-	void Update () {
+	void Update11 () {
 		FindingPath (new Vector2 (grid.player.position.x, grid.player.position.y),
 			new Vector2 (grid.destPos.position.x, grid.destPos.position.y));
 	}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//#define kDebugPath
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -109,9 +110,15 @@ public class Grid : MonoBehaviour {
 		return list;
 	}
 
+	#if kDebugPath
 	List<GameObject> debugPathList;
+	#endif
 	// 更新路径
 	public void updatePath(List<NodeItem> lines) {
+		if (lines.Count > 0) {
+			player.SendMessage ("Move", lines);
+		}
+		#if kDebugPath
 		if (debugPathList == null) {
 			debugPathList = new List<GameObject> ();
 		}
@@ -123,6 +130,7 @@ public class Grid : MonoBehaviour {
 				obj.SetActive (true);
 			}else{
 				obj = GameObject.CreatePrimitive (PrimitiveType.Cube);
+				obj.transform.localScale = Vector3.one * 0.3f;
 				debugPathList.Add (obj);
 			}
 			obj.name = (string.Format ("debugPath_{0}_{1}", lines [i].x, lines [i].y));
@@ -132,5 +140,6 @@ public class Grid : MonoBehaviour {
 		for (int i = lines.Count; i < debugPathList.Count; i++) {
 			debugPathList [i].SetActive (false);
 		}
+		#endif
 	}
 }
