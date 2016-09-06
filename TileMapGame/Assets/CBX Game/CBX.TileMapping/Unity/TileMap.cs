@@ -7,6 +7,10 @@
     /// </summary>
     public class TileMap : MonoBehaviour
     {
+		public static TileMap Current;
+		void Awake(){
+			Current = this;
+		}
 
         /// <summary>
         /// Gets or sets the number of rows of tiles.

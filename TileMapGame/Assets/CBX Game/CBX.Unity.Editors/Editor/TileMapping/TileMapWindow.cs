@@ -16,7 +16,7 @@ public class TileMapWindow : EditorWindow {
 		EditorGUILayout.EndHorizontal ();
 
 		//EstimateElemType
-		if (_tempTexture != m_SelectTexture || m_SelectElemType == TileMapElemType.None) {
+		if (_tempTexture != m_SelectTexture) {
 			m_SelectElemType = EstimateElemType (_tempTexture);
 		}
 		m_SelectTexture = _tempTexture;
@@ -36,8 +36,6 @@ public class TileMapWindow : EditorWindow {
 	}
 
 	void OnEnable(){
-		//Init Elem Type
-		m_SelectElemType = TileMapElemType.None;
 		//get texture from local
 		if (m_SelectTexture == null) {
 			string texturePath = EditorPrefs.GetString ("TileMapWindow_SelectTexture_Path", "");
@@ -45,6 +43,8 @@ public class TileMapWindow : EditorWindow {
 				m_SelectTexture = (Texture2D)AssetDatabase.LoadMainAssetAtPath (texturePath);
 			}
 		}
+
+		m_SelectElemType = EstimateElemType (m_SelectTexture);
 	}
 
 	TileMapElemType _tempElemType;

@@ -56,9 +56,11 @@ namespace CBX.Unity.Editors.Editor
                 {
                     if (current.button == 1)
                     {
-                        // if right mouse button is pressed then we erase blocks
+						if (current.alt) {
+							// if right mouse button is pressed then we erase blocks
 							this.Erase ();
 							current.Use ();
+						}
                     }
                     else if (current.button == 0)
                     {
@@ -72,7 +74,7 @@ namespace CBX.Unity.Editors.Editor
             // draw a UI tip in scene view informing user how to draw & erase tiles
             Handles.BeginGUI();
             GUI.Label(new Rect(10, Screen.height - 90, 100, 100), "LMB: Draw");
-            GUI.Label(new Rect(10, Screen.height - 105, 100, 100), "RMB: Erase");
+            GUI.Label(new Rect(10, Screen.height - 105, 100, 100), "Alt+RMB: Erase");
             Handles.EndGUI();
         }
 
@@ -109,12 +111,8 @@ namespace CBX.Unity.Editors.Editor
             if (cube == null)
             {
                 //cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				cube = new GameObject();
-				SpriteRenderer spriteRenderer = cube.AddComponent<SpriteRenderer> ();
-
-				Texture2D texture = TileMapWindow.m_SelectTexture;
-				spriteRenderer.sprite = Sprite.Create (texture, new Rect (0, 0 , texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            }
+				cube = CreateTile((int)tilePos.x, (int)tilePos.y);
+			}
 
             // set the cubes position on the tile map
             var tilePositionInLocalSpace = new Vector3((tilePos.x * map.TileWidth) + (map.TileWidth / 2), (tilePos.y * map.TileHeight) + (map.TileHeight / 2));
@@ -268,5 +266,23 @@ namespace CBX.Unity.Editors.Editor
             // return false if the hit test failed
             return false;
         }
+
+		GameObject CreateTile(int vGridx, int vGridY){
+			GameObject cube = new GameObject();
+
+			//assign sprite
+			SpriteRenderer spriteRenderer = cube.AddComponent<SpriteRenderer> ();
+			Texture2D texture = TileMapWindow.m_SelectTexture;
+			spriteRenderer.sprite = Sprite.Create (texture, new Rect (0, 0 , texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+			//assign tile info
+			TileInfo tileInfo = cube.AddComponent<TileInfo> ();
+			tileInfo.m_ElemType = TileMapWindow.m_SelectElemType;
+
+			//grid pos
+			tileInfo.m_GridX = vGridx;
+			tileInfo.m_GridY = vGridY;
+			return cube;
+		}
     }
 }
