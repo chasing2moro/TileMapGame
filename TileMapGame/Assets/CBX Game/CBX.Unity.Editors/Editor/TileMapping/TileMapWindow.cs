@@ -32,7 +32,7 @@ public class TileMapWindow : EditorWindow {
 	void OnDisable() {
 		//save texture path to local
 		if(m_SelectTexture != null)
-			EditorPrefs.SetString ("TileMapWindow_SelectTexture_Path", AssetDatabase.GetAssetPath (m_SelectTexture));
+			EditorPrefs.SetString ("TileMapWindow_SelectTexture_Path", GetTextureAssetPath());
 	}
 
 	void OnEnable(){
@@ -47,7 +47,16 @@ public class TileMapWindow : EditorWindow {
 		m_SelectElemType = EstimateElemType (m_SelectTexture);
 	}
 
+	public static string GetTextureAssetPath(){
+		return AssetDatabase.GetAssetPath (m_SelectTexture);
+	}
+
 	TileMapElemType _tempElemType;
+	/// <summary>
+	/// 根据Texture获取elem类型
+	/// </summary>
+	/// <returns>The element type.</returns>
+	/// <param name="vTexture">V texture.</param>
 	TileMapElemType EstimateElemType(Texture2D vTexture){
 		for (int i = 0; i < (int)TileMapElemType.None; i++) {
 			_tempElemType = (TileMapElemType)i;

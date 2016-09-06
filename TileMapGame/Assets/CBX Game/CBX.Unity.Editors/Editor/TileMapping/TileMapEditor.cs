@@ -101,17 +101,13 @@ namespace CBX.Unity.Editors.Editor
             // Given the tile position check to see if a tile has already been created at that location
             var cube = GameObject.Find(string.Format("Tile_{0}_{1}", tilePos.x, tilePos.y));
 
-            // if there is already a tile present and it is not a child of the game object we can just exit.
-            if (cube != null && cube.transform.parent != map.transform)
-            {
-                return;
-            }
 
             // if no game object was found we will create a cube
-            if (cube == null)
-            {
-                //cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				cube = CreateTile((int)tilePos.x, (int)tilePos.y);
+			if (cube == null) {
+				//cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				cube = CreateTile ((int)tilePos.x, (int)tilePos.y);
+			} else {
+				InitTile (cube, (int)tilePos.x, (int)tilePos.y);
 			}
 
             // set the cubes position on the tile map
@@ -268,21 +264,27 @@ namespace CBX.Unity.Editors.Editor
         }
 
 		GameObject CreateTile(int vGridx, int vGridY){
-			GameObject cube = new GameObject();
+			GameObject tile = new GameObject();
+			InitTile(tile, vGridx, vGridY);
+			return tile;
+		}
 
+		void InitTile(GameObject vTile,int vGridx, int vGridY){
 			//assign sprite
-			SpriteRenderer spriteRenderer = cube.AddComponent<SpriteRenderer> ();
-			Texture2D texture = TileMapWindow.m_SelectTexture;
-			spriteRenderer.sprite = Sprite.Create (texture, new Rect (0, 0 , texture.width, texture.height), new Vector2(0.5f, 0.5f));
+			SpriteRenderer spriteRenderer = vTile.GetComponent<SpriteRenderer> ();
+			if(spriteRenderer == null)
+				spriteRenderer = vTile.AddComponent<SpriteRenderer> ();
+			spriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite> (TileMapWindow.GetTextureAssetPath ());//need to optimise
 
 			//assign tile info
-			TileInfo tileInfo = cube.AddComponent<TileInfo> ();
+			TileInfo tileInfo = vTile.GetComponent<TileInfo> ();
+			if (tileInfo == null)
+				tileInfo = vTile.AddComponent<TileInfo> ();
 			tileInfo.m_ElemType = TileMapWindow.m_SelectElemType;
 
 			//grid pos
 			tileInfo.m_GridX = vGridx;
 			tileInfo.m_GridY = vGridY;
-			return cube;
 		}
     }
 }
