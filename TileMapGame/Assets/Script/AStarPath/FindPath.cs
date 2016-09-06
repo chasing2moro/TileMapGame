@@ -11,12 +11,14 @@ public class FindPath : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	[ContextMenu("PathFind")]
 	void Update () {
-		FindingPath (grid.player.position, grid.destPos.position);
+		FindingPath (new Vector2 (grid.player.position.x, grid.player.position.y),
+			new Vector2 (grid.destPos.position.x, grid.destPos.position.y));
 	}
 
 	// A*寻路
-	void FindingPath(Vector3 s, Vector3 e) {
+	void FindingPath(Vector2 s, Vector2 e) {
 		Grid.NodeItem startNode = grid.getItem (s);
 		Grid.NodeItem endNode = grid.getItem (e);
 
@@ -46,7 +48,7 @@ public class FindPath : MonoBehaviour {
 			// 判断周围节点，选择一个最优的节点
 			foreach (var item in grid.getNeibourhood(curNode)) {
 				// 如果是墙或者已经在关闭列表中
-				if (item.isWall || closeSet.Contains (item))
+				if (item.isObstacle || closeSet.Contains (item))
 					continue;
 				// 计算当前相领节点现开始节点距离
 				int newCost = curNode.gCost + getDistanceNodes (curNode, item);
