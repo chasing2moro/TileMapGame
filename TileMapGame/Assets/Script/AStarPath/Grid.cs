@@ -115,9 +115,6 @@ public class Grid : MonoBehaviour {
 	#endif
 	// 更新路径
 	public void updatePath(List<NodeItem> lines) {
-		if (lines.Count > 0) {
-			player.SendMessage ("Move", lines);
-		}
 		#if kDebugPath
 		if (debugPathList == null) {
 			debugPathList = new List<GameObject> ();

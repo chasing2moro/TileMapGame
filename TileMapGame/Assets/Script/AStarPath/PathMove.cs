@@ -25,11 +25,12 @@ public class PathMove : MonoBehaviour {
 			//可以移动
 			Grid.NodeItem node = m_PathList [m_MoveIndex];
 			Vector2 position = transform.position;
-			if (Vector2.Distance (node.pos, position) < 0.2f) {
+			if (Vector2.Distance (node.pos, position) < 0.1f) {
 				//距离够近，可以下一步
 				if (m_MoveIndex == m_PathList.Count - 1) {
 					//走到尽头
 					_isShowMove = false;
+					Debug.Log ("move finished");
 				}
 				m_MoveIndex++;
 			} else {

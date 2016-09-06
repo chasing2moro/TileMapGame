@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class FindPath : MonoBehaviour {
 	private Grid grid;
-
+	protected GameObject m_Planner;
 	// Use this for initialization
 	void Start () {
 		grid = GetComponent<Grid> ();
@@ -13,8 +13,12 @@ public class FindPath : MonoBehaviour {
 	// Update is called once per frame
 	[ContextMenu("PathFind")]
 	void Update11 () {
-		FindingPath (new Vector2 (grid.player.position.x, grid.player.position.y),
-			new Vector2 (grid.destPos.position.x, grid.destPos.position.y));
+		FindingPath (grid.player.gameObject, new Vector2 (grid.destPos.position.x, grid.destPos.position.y));
+	}
+
+	void FindingPath(GameObject vPlanner, Vector2 vTarget){
+		m_Planner = vPlanner;
+		FindingPath (new Vector2 (m_Planner.transform.position.x, m_Planner.transform.position.y),vTarget);
 	}
 
 	// A*寻路
@@ -85,6 +89,9 @@ public class FindPath : MonoBehaviour {
 		}
 		// 更新路径
 		grid.updatePath(path);
+		if (path.Count > 0) {
+			m_Planner.SendMessage ("Move", path);
+		}
 	}
 
 	// 获取两个节点之间的距离
