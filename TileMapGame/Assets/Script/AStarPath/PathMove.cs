@@ -4,14 +4,20 @@ using System.Collections.Generic;
 
 public class PathMove : MonoBehaviour {
 	public int m_MoveIndex;
+
+	//走路路线
 	public List<Grid.NodeItem> m_PathList;
 	public float m_MoveSpeed = 5;
 	bool _isShowMove = false;
 
 	public void Move(List<Grid.NodeItem> vPathList){
+		Move ();
+		m_PathList = vPathList;
+	}
+
+	public void Move(){
 		_isShowMove = true;
 		m_MoveIndex = 0;
-		m_PathList = vPathList;
 	}
 
 	// Use this for initialization

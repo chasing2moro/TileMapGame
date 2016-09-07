@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EntityBase : MonoBehaviour {
+public abstract class EntityBase : MonoBehaviour {
+	public abstract int GetGridX ();
+	public abstract int GetGridY();
+}
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public enum EntityState{
+	None,
+	Idle,
+	Walk
 }

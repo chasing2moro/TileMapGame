@@ -61,9 +61,10 @@ public class Grid : MonoBehaviour {
 	private int w, h;
 
 	private GameObject WallRange, PathRange;
-	private List<GameObject> pathObj = new List<GameObject> ();
 
 	void Start() {
+		Debug.Log( typeof(Animator).Assembly.FullName );
+
 		// 初始化格子
 		w = TileMapUtil.GetColumns(); 
 		h = TileMapUtil.GetRows ();

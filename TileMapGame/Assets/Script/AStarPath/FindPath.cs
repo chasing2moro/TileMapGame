@@ -16,7 +16,7 @@ public class FindPath : MonoBehaviour {
 		FindingPath (grid.player.gameObject, new Vector2 (grid.destPos.position.x, grid.destPos.position.y));
 	}
 
-	void FindingPath(GameObject vPlanner, Vector2 vTarget){
+	public void FindingPath(GameObject vPlanner, Vector2 vTarget){
 		m_Planner = vPlanner;
 		FindingPath (new Vector2 (m_Planner.transform.position.x, m_Planner.transform.position.y),vTarget);
 	}
@@ -90,7 +90,7 @@ public class FindPath : MonoBehaviour {
 		// 更新路径
 		grid.updatePath(path);
 		if (path.Count > 0) {
-			m_Planner.SendMessage ("Move", path);
+			m_Planner.SendMessage ("OnHandleMessageMove", path);
 		}
 	}
 
