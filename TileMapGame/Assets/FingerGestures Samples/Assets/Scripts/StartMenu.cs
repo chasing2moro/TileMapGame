@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
@@ -52,7 +53,8 @@ public class StartMenu : MonoBehaviour
                 {
                     MenuNode menuNode = item.GetComponent<MenuNode>();
                     if( menuNode && menuNode.sceneName != null && menuNode.sceneName.Length > 0 )
-                        Application.LoadLevel( menuNode.sceneName );
+						SceneManager.LoadScene (menuNode.sceneName);
+                        //Application.LoadLevel( menuNode.sceneName );
                     else if( item.childCount > 0 )
                         CurrentMenuRoot = item;
                 }

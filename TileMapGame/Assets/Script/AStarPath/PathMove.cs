@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PathMove : MonoBehaviour {
 	public int m_MoveIndex;
@@ -9,6 +10,8 @@ public class PathMove : MonoBehaviour {
 	public List<Grid.NodeItem> m_PathList;
 	public float m_MoveSpeed = 5;
 	bool _isShowMove = false;
+
+	public Action m_MoveFinishCallBack;
 
 	public void Move(List<Grid.NodeItem> vPathList){
 		Move ();
@@ -36,7 +39,8 @@ public class PathMove : MonoBehaviour {
 				if (m_MoveIndex == m_PathList.Count - 1) {
 					//走到尽头
 					_isShowMove = false;
-					Debug.Log ("move finished");
+					if (m_MoveFinishCallBack != null)
+						m_MoveFinishCallBack ();
 				}
 				m_MoveIndex++;
 			} else {

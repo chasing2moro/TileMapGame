@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class FindPath : MonoBehaviour {
+	public static FindPath Instance;
+	void Awake(){
+		Instance = this;
+	}
 	private Grid grid;
 	protected GameObject m_Planner;
 	// Use this for initialization
@@ -12,7 +16,7 @@ public class FindPath : MonoBehaviour {
 	
 	// Update is called once per frame
 	[ContextMenu("PathFind")]
-	void Update11 () {
+	void PathFind () {
 		FindingPath (grid.player.gameObject, new Vector2 (grid.destPos.position.x, grid.destPos.position.y));
 	}
 

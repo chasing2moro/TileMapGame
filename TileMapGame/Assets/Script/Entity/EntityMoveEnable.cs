@@ -33,7 +33,7 @@ public class EntityMoveEnable : EntityBase
 	}
 
 	void OnStateIdleOnce(){
-
+		Debug.Log ("idle");
 	}
 
 	void OnStateIdle(){
@@ -41,6 +41,7 @@ public class EntityMoveEnable : EntityBase
 	}
 
 	void OnStateWalkOnce(){
+		Debug.Log ("walk");
 		if (m_PathMove != null)
 			m_PathMove.Move ();
 	}
@@ -53,6 +54,11 @@ public class EntityMoveEnable : EntityBase
 	#region Unity Event
 	protected virtual void Awake(){
 		m_PathMove = gameObject.GetAddComponent<PathMove> ();
+		m_PathMove.m_MoveFinishCallBack = OnHandleMoveFinish;
+	}
+
+	protected virtual void OnDestroy(){
+		m_PathMove.m_MoveFinishCallBack = null;
 	}
 		
 	protected virtual void Update(){
@@ -78,6 +84,11 @@ public class EntityMoveEnable : EntityBase
 
 		//进入移动状态
 		EnterState (EntityState.Walk);
+	}
+
+	void OnHandleMoveFinish(){
+		//进入空闲状态
+		EnterState (EntityState.Idle);
 	}
 	#endregion
 }

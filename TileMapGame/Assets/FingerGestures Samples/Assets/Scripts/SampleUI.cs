@@ -3,6 +3,9 @@ using System.Collections;
 
 // iphone3 480 x 320
 // iphone4 960 x 640
+using UnityEngine.SceneManagement;
+
+
 public class SampleUI : MonoBehaviour
 {
     public GUISkin skin;
@@ -70,8 +73,9 @@ public class SampleUI : MonoBehaviour
 
         GUI.Box( topBarRect, "" );
 
-        if( GUI.Button( backButtonRect, "Back" ) )
-            Application.LoadLevel( 0 );
+		if (GUI.Button (backButtonRect, "Back"))
+			SceneManager.LoadScene (0);
+            //Application.LoadLevel( 0 );
 
         GUI.Label( titleRect, "FingerGestures - " + this.name, titleStyle );
 
