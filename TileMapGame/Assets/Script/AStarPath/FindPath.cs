@@ -35,8 +35,9 @@ public class FindPath : MonoBehaviour {
 		openSet.Add (startNode);
 
 		while (openSet.Count > 0) {
-			Grid.NodeItem curNode = openSet [0];
 
+			//从 openSet 找出消耗最小的
+			Grid.NodeItem curNode = openSet [0];
 			for (int i = 0, max = openSet.Count; i < max; i++) {
 				if (openSet [i].fCost <= curNode.fCost &&
 				    openSet [i].hCost < curNode.hCost) {
@@ -44,6 +45,7 @@ public class FindPath : MonoBehaviour {
 				}
 			}
 
+			//消耗最小的Node从OpenSet移走,加入CloseSet
 			openSet.Remove (curNode);
 			closeSet.Add (curNode);
 

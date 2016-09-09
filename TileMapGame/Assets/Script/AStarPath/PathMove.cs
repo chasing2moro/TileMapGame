@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// 每个要移动的Entity都要挂接这个脚本
+/// </summary>
 public class PathMove : MonoBehaviour {
 	public int m_MoveIndex;
 

@@ -1,4 +1,4 @@
-﻿//#define kDebugPath
+﻿#define kDebugPath
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
