@@ -16,7 +16,7 @@ public class EntityMoveEnable : EntityBase
 	EntityState m_State;
 
 	//走路组件
-	PathMove m_PathMove;
+	protected MoveBase _moveBase;
 	#region State
 	public void EnterState(EntityState vState){
 		m_State = vState;
@@ -33,7 +33,7 @@ public class EntityMoveEnable : EntityBase
 	}
 
 	void OnStateIdleOnce(){
-		Debug.Log ("idle");
+		Debug.Log ("idle:" + this.gameObject.name);
 	}
 
 	void OnStateIdle(){
@@ -41,9 +41,9 @@ public class EntityMoveEnable : EntityBase
 	}
 
 	void OnStateWalkOnce(){
-		Debug.Log ("walk");
-		if (m_PathMove != null)
-			m_PathMove.Move ();
+		Debug.Log ("walk:" + this.gameObject.name);
+		if (_moveBase != null)
+			_moveBase.Move ();
 	}
 
 	void OnStateWalk(){
@@ -53,12 +53,12 @@ public class EntityMoveEnable : EntityBase
 
 	#region Unity Event
 	protected virtual void Awake(){
-		m_PathMove = gameObject.GetAddComponent<PathMove> ();
-		m_PathMove.m_MoveFinishCallBack = OnHandleMoveFinish;
+		_moveBase = gameObject.GetAddComponent<MoveBase> ();
+		_moveBase.m_MoveFinishCallBack = OnHandleMoveFinish;
 	}
 
 	protected virtual void OnDestroy(){
-		m_PathMove.m_MoveFinishCallBack = null;
+		_moveBase.m_MoveFinishCallBack = null;
 	}
 		
 	protected virtual void Update(){
@@ -76,16 +76,6 @@ public class EntityMoveEnable : EntityBase
 	#endregion
 
 	#region Message
-	//请求移动
-	public void OnHandleMessageMove(List<Grid.NodeItem> vPathList){
-		//缓存路线
-		if (m_PathMove != null)
-			m_PathMove.m_PathList = vPathList;
-
-		//进入移动状态
-		EnterState (EntityState.Walk);
-	}
-
 	void OnHandleMoveFinish(){
 		//进入空闲状态
 		EnterState (EntityState.Idle);
