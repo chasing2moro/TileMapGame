@@ -5,7 +5,12 @@ public class InteractEventMap : Controller {
 	void OnTap(TapGesture gesture) { 
 		Vector3 tapMapPos = CameraHelper.ScreenPosToBackgroundPos (gesture.Position);
 		//Debug.Log("tap Obj pos:" + tapMapPos);
-		SendEvent (GameEvent.m_EventInput.InteractMap, new Vector2(tapMapPos.x, tapMapPos.y));
+		SendEvent (GameEvent.m_EventInput.InteractMapTap, new Vector2(tapMapPos.x, tapMapPos.y));
+	}
+
+	void OnDrag(DragGesture gesture) { 
+		/* your code here */
+		Debug.Log (gesture.State);
 	}
 	// Use this for initialization
 	void Start () {

@@ -8,7 +8,7 @@ public class EventUI
 }
 public class EventInput
 {
-	public uint InteractMap = 0x0100001;
+	public uint InteractMapTap = 0x0100001;
 }
 public class GameEvent
 {
