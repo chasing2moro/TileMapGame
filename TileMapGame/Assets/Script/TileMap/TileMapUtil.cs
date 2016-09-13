@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using CBX.TileMapping.Unity;
+using System.Collections.Generic;
 
 public class TileMapUtil {
 	public static Vector2 GetPosFromGrid(int vGridx, int vGridY){
@@ -72,5 +73,14 @@ public class TileMapUtil {
 
 	public static bool IsObstacle(TileMapElemType vElemType){
 		return (int)vElemType > (int)TileMapElemType.Grass;
+	}
+
+	public static Dictionary<TileMapElemType, Color> S_ElemType2DebugColor = new Dictionary<TileMapElemType, Color> (){
+		{TileMapElemType.Grass, Color.green},
+		{TileMapElemType.Steel, Color.white},
+		{TileMapElemType.Wood, Color.yellow},
+	};
+	public static Color GetDebugColor(TileMapElemType vElemType){
+		return S_ElemType2DebugColor [vElemType];
 	}
 }
