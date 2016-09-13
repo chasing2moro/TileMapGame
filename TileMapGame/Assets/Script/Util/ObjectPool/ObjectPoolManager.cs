@@ -99,3 +99,8 @@ public class ObjectPoolManager : Controller{
 		}
 	}
 }
+
+public enum ObjectPoolType{
+	EffectBomb,
+	EntityBomb
+}

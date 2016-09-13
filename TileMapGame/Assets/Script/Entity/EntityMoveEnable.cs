@@ -4,23 +4,14 @@ using System.Collections.Generic;
 
 public class EntityMoveEnable : EntityBase
 {
-	public override int GetGridX (){
-		#warning Unimplement GetGridX
-		return 0;
-	}
-	public override int GetGridY(){
-		#warning Unimplement GetGridY
-		return 0;
-	}
-
-	EntityState m_State;
+	protected EntityState _state;
 
 	//走路组件
 	protected MoveBase _moveBase;
 	#region State
-	public void EnterState(EntityState vState){
-		m_State = vState;
-		switch (m_State) {
+	public virtual void EnterState(EntityState vState){
+		_state = vState;
+		switch (_state) {
 		case EntityState.Idle:
 			OnStateIdleOnce ();
 			break;
@@ -62,7 +53,7 @@ public class EntityMoveEnable : EntityBase
 	}
 		
 	protected virtual void Update(){
-		switch (m_State) {
+		switch (_state) {
 		case EntityState.Idle:
 			OnStateIdle ();
 			break;

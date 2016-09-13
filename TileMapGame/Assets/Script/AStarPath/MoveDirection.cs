@@ -10,6 +10,9 @@ public class MoveDirection : MoveBase
 	{
 		if (_isShouldMove) {
 			transform.Translate (Vector3.left);
+			if (m_MoveFinishCallBack != null)
+				m_MoveFinishCallBack ();
+			_isShouldMove = false;
 		}
 	}
 }

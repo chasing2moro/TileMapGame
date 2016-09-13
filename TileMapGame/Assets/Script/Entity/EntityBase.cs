@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class EntityBase : Controller {
-	public abstract int GetGridX ();
-	public abstract int GetGridY();
+public class EntityBase : Controller {
+	Vector2 _tempVec;
+	public  void GetGrid(out int vGridX, out int vGridY){
+		_tempVec.x = transform.position.x;
+		_tempVec.y = transform.position.y;
+		TileMapUtil.GetGridFromPos (_tempVec, out vGridX, out vGridY);
+	}
 }
 
 public enum EntityState{
 	None,
 	Idle,
-	Walk
+	Walk,
+	LayBomb
 }

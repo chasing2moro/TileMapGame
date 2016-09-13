@@ -11,6 +11,7 @@ public class EntityEnemy : EntityMoveEnable
 	}
 
 	void RandomMove(){
+		//指定方向
 		((MoveDirection)_moveBase).m_MoveDirection = GetRandomDirection ();
 
 		//进入移动状态

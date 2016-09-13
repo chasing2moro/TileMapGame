@@ -100,6 +100,10 @@ public class Grid : MonoBehaviour {
 				// 如果是自己，则跳过
 				if (i == 0 && j == 0)
 					continue;
+
+				//只检测上下左右
+				if (Mathf.Abs (i) == Mathf.Abs (j))
+					continue;
 				int x = node.x + i;
 				int y = node.y + j;
 				// 判断是否越界，如果没有，加到列表中
@@ -127,7 +131,7 @@ public class Grid : MonoBehaviour {
 				obj.SetActive (true);
 			}else{
 				obj = GameObject.CreatePrimitive (PrimitiveType.Cube);
-				obj.transform.localScale = Vector3.one * 0.3f;
+				obj.transform.localScale = Vector3.one * 0.1f;
 				debugPathList.Add (obj);
 			}
 			obj.name = (string.Format ("debugPath_{0}_{1}", lines [i].x, lines [i].y));

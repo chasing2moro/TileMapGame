@@ -13,9 +13,8 @@ public class GameEnter : MonoBehaviour
 	// Update is called once per frame
 	void InitPool ()
 	{
-		ObjectPoolManager.Instance.CreatePool ("EffectBomb", 5, 10, Resources.Load ("Prefab/Effect/EffectBomb") as GameObject);
-		ObjectPoolManager.Instance.CreatePool ("EntityBomb", 5, 10, Resources.Load ("Prefab/Entity/EntityBomb") as GameObject);
-		 ObjectPoolManager.Instance.Get ("EntityBomb");
+		ObjectPoolManager.Instance.CreatePool (ObjectPoolType.EffectBomb.ToString(), 5, 10, Resources.Load ("Prefab/Effect/EffectBomb") as GameObject);
+		ObjectPoolManager.Instance.CreatePool (ObjectPoolType.EntityBomb.ToString(), 5, 10, Resources.Load ("Prefab/Entity/EntityBomb") as GameObject);
 	}
 }
 
