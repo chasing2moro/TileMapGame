@@ -38,7 +38,7 @@ public class EntityPlayer : EntityMoveEnable
 		UnRegistEvent (GameEvent.m_EventInput.InteractMapTap, OnHandleInteractMap);
 	}
 
-	protected virtual void Update(){
+	protected override void Update(){
 		base.Update ();
 		switch (_state) {
 		case EntityState.LayBomb:

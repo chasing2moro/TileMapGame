@@ -31,7 +31,7 @@ public class EntityBomb : EntityMoveDisable
 		Vector2 pos = TileMapUtil.GetPosFromGrid (vGridX, vGridY);
 		effectBomb.transform.Set2DPosition (pos);
 		//播放动画
-		Animator animator = GetComponent<Animator> ();
+		Animator animator = effectBomb.GetComponent<Animator> ();
 		animator.SetTrigger ("Explosion");
 		StartCoroutine (RecycleEffectBomb(effectBomb));
 	}
@@ -44,7 +44,7 @@ public class EntityBomb : EntityMoveDisable
 
 	//回收
 	IEnumerator RecycleEntityBomb(){
-		yield return new WaitForSeconds (m_BombTime);
+		yield return new WaitForSeconds (m_BombTime + 0.1f);
 		ObjectPoolManager.Instance.Release (ObjectPoolType.EntityBomb.ToString(), this.gameObject );
 	}
 
