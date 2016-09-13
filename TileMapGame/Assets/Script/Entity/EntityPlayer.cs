@@ -18,7 +18,10 @@ public class EntityPlayer : EntityMoveEnable
 
 	void OnStateLayBombOnce(){
 		GameObject bomb = ObjectPoolManager.Instance.Get (ObjectPoolType.EntityBomb.ToString());
+		bomb.transform.SetParent (null, false);
 		bomb.transform.Set2DPosition (this.transform.Get2DPosition ());
+		EntityBomb entityBomb = bomb.GetComponent<EntityBomb> ();
+		entityBomb.Bomb ();
 	}
 
 	void OnStateLayBomb(){

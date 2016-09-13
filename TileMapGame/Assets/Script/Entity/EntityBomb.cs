@@ -4,20 +4,22 @@ using System.Collections;
 public class EntityBomb : EntityMoveDisable
 {
 	public int m_Len;
-	public float m_BombTime = 0.4f;
+	 float m_BombTime = 1f;
 	// Use this for initialization
-	void Start ()
+	public void Bomb ()
 	{
 		int gridX;
 		int gridY;
 		GetGrid (out gridX, out gridY);
 
-		CreateEffectBomb (gridX, gridY);
-		CreateEffectBomb (gridX - 1, gridY);
-		CreateEffectBomb (gridX + 1, gridY);
-		CreateEffectBomb (gridX, gridY - 1);
-		CreateEffectBomb (gridX, gridY + 1);
+		 CreateEffectBomb (gridX, gridY);
+		 CreateEffectBomb (gridX - 1, gridY);
+		 CreateEffectBomb (gridX + 1, gridY);
+		 CreateEffectBomb (gridX, gridY - 1);
+		 CreateEffectBomb (gridX, gridY + 1);
 
+		Animator animator = GetComponent<Animator> ();
+		animator.SetTrigger ("WaitingForExplose");
 		StartCoroutine (RecycleEntityBomb());
 	}
 
@@ -29,7 +31,7 @@ public class EntityBomb : EntityMoveDisable
 		Vector2 pos = TileMapUtil.GetPosFromGrid (vGridX, vGridY);
 		effectBomb.transform.Set2DPosition (pos);
 		//播放动画
-		Animator animator = effectBomb.GetComponent<Animator> ();
+		Animator animator = GetComponent<Animator> ();
 		animator.SetTrigger ("Explosion");
 		StartCoroutine (RecycleEffectBomb(effectBomb));
 	}
@@ -42,7 +44,7 @@ public class EntityBomb : EntityMoveDisable
 
 	//回收
 	IEnumerator RecycleEntityBomb(){
-		yield return new WaitForSeconds (m_BombTime + 0.1f);
+		yield return new WaitForSeconds (m_BombTime);
 		ObjectPoolManager.Instance.Release (ObjectPoolType.EntityBomb.ToString(), this.gameObject );
 	}
 
