@@ -51,8 +51,8 @@ using System.Collections.Generic;
 			if(availableObjStack.Count > 0) {
 				go = availableObjStack.Pop();
 			} else {
-				//go = NewObjectInstance();
-				Debug.LogError("No object available & cannot grow pool: " + poolName);
+				go = NewObjectInstance();
+				//Debug.LogError("No object available & cannot grow pool: " + poolName);
 			}
             go.SetActive(true);
             return go;

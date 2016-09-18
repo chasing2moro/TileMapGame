@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EntityBomb : EntityMoveDisable
 {
-	 int m_Len;
+	 int m_Len = 5;
 	 float m_BombTime = 2f;
 	int _effectBombNum;
 	int _effectBombCounter;
@@ -16,13 +16,20 @@ public class EntityBomb : EntityMoveDisable
 		GetGrid (out gridX, out gridY);
 
 		//创建爆炸效果
-		 EffectBombCreate (gridX, gridY);
-		 EffectBombCreate (gridX - 1, gridY);
-		 EffectBombCreate (gridX + 1, gridY);
-		 EffectBombCreate (gridX, gridY - 1);
-		 EffectBombCreate (gridX, gridY + 1);
-		_effectBombNum = 5;
+		_effectBombNum = 0;
 		_effectBombCounter = 0;
+		 EffectBombCreate (gridX, gridY);
+		++_effectBombNum;
+		for (int i = -m_Len; i <= m_Len; i++) {
+			for (int j = -m_Len; j <= m_Len; j++) {
+				if(i * j == 0){
+					if(i == 0 && j == 0)
+						continue;
+					EffectBombCreate (gridX + i, gridY + j);
+					++_effectBombNum;
+				}
+			}
+		}
 
 		//播放炸弹等待效果
 		Animator animator = GetComponent<Animator> ();
